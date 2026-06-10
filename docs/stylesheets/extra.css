@@ -1,0 +1,26 @@
+/* Light Mode */
+[data-md-color-scheme="default"] {
+    --md-default-bg-color: #ffffff;
+
+    /* Deep forest green */
+    --md-primary-fg-color: #1B5E20;
+    --md-primary-fg-color--light: #2E7D32;
+    --md-primary-fg-color--dark: #0D3B12;
+
+    /* Neon emerald */
+    --md-accent-fg-color: #66FF66;
+}
+
+/* Dark Mode */
+[data-md-color-scheme="slate"] {
+    /* Dark graphite */
+    --md-default-bg-color: #1A1C1E;
+
+    /* Deep forest green */
+    --md-primary-fg-color: #1B5E20;
+    --md-primary-fg-color--light: #2E7D32;
+    --md-primary-fg-color--dark: #0D3B12;
+
+    /* Neon emerald */
+    --md-accent-fg-color: #66FF66;
+}

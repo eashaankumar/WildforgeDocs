@@ -10,16 +10,12 @@ theme:
 
     # Dark mode
     - scheme: slate
-      primary: black
-      accent: lime
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
 
     # Light mode
     - scheme: default
-      primary: green
-      accent: lime
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
@@ -31,6 +27,9 @@ theme:
     - search.highlight
     - search.suggest
     - content.code.copy
+
+extra_css:
+  - stylesheets/extra.css
 
 nav:
   - Home: index.md
