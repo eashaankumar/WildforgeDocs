@@ -3,20 +3,23 @@ site_description: Documentation for the Wildforge Engine
 theme:
   name: material
 
+  logo: assets/wildforge-logo.png
+  favicon: assets/wildforge-logo.png
+
   palette:
 
     # Dark mode
     - scheme: slate
       primary: black
-      accent: deep orange
+      accent: lime
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
 
     # Light mode
     - scheme: default
-      primary: blue
-      accent: deep orange
+      primary: green
+      accent: lime
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
