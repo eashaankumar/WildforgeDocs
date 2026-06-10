@@ -15,11 +15,19 @@ theme:
 
     # Light mode
     - scheme: default
-      primary: green
+      primary: blue
       accent: deep orange
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
+
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
 
 nav:
   - Home: index.md
