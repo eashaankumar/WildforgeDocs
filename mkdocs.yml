@@ -2,13 +2,24 @@ site_name: Wildforge Engine
 site_description: Documentation for the Wildforge Engine
 theme:
   name: material
-  features:
-    - navigation.sections
-    - navigation.expand
-    - navigation.top
-    - search.highlight
-    - search.suggest
-    - content.code.copy
+
+  palette:
+
+    # Dark mode
+    - scheme: slate
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+    # Light mode
+    - scheme: default
+      primary: green
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
 
 nav:
   - Home: index.md
