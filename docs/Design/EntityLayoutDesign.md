@@ -777,6 +777,444 @@ This is the preferred term for the project.
 
 ---
 
+# Why Unmanaged Native Storage Is Non-Negotiable
+
+One of the biggest reasons Typed Entity Pools exist is because Forgewild is designed around:
+
+- Massive simulation counts
+- Parallel execution
+- Job systems
+- Native interop
+- Manual memory ownership
+- Burst-style optimization
+- Deterministic performance
+
+Because of this, entity storage should eventually use:
+
+```csharp
+NativeArray<Dino>
+NativeList<Dino>
+UnsafeList<Dino>
+```
+
+instead of:
+
+```csharp
+Dino[]
+```
+
+The regular array version is useful as a prototype.
+
+The final engine architecture should be unmanaged.
+
+---
+
+# Why Not Managed Arrays?
+
+Managed arrays have several limitations:
+
+```text
+GC tracked
+Runtime controlled lifetime
+Potential pauses
+Less suitable for native interop
+Harder to reason about ownership
+```
+
+For many applications this is perfectly fine.
+
+For a simulation-heavy game engine, it is not ideal.
+
+---
+
+# Why Unmanaged Storage Wins
+
+Unmanaged storage provides:
+
+```text
+Manual lifetime control
+No GC tracked references
+Native interop
+Job system compatibility
+Predictable allocation behavior
+Large memory capacity
+Burst optimization
+```
+
+These are all requirements for Forgewild.
+
+---
+
+# Parallel Simulation
+
+The long-term goal is to execute systems in parallel.
+
+Example:
+
+```text
+Thread 1 -> Dinosaur AI
+Thread 2 -> Mammal AI
+Thread 3 -> Shrimp AI
+Thread 4 -> Projectile Simulation
+Thread 5 -> Vegetation Updates
+```
+
+Because each pool owns its own memory:
+
+```text
+DinoPool
+MammalPool
+ShrimpPool
+ProjectilePool
+```
+
+systems can operate independently.
+
+This dramatically simplifies parallel execution.
+
+---
+
+# ECS Does Not Own Parallelism
+
+A common misconception is:
+
+```text
+ECS = Parallel
+```
+
+This is false.
+
+Parallelism comes from:
+
+```text
+Independent memory
+Independent workloads
+Careful synchronization
+```
+
+Typed Entity Pools provide all three.
+
+---
+
+# Structural Changes Must Be Separate
+
+One rule must always be followed.
+
+Never spawn or destroy entities while jobs are actively reading or writing a pool.
+
+Instead use phases.
+
+```text
+Frame Begin
+
+Apply Spawn Commands
+Apply Destroy Commands
+
+Run AI Jobs
+Run Physics Jobs
+Run Animation Jobs
+
+Run Render Extraction
+
+Frame End
+```
+
+This keeps memory stable while workers operate.
+
+---
+
+# Command Buffers
+
+Instead of:
+
+```csharp
+DestroyDino(handle);
+```
+
+inside AI code,
+
+use:
+
+```csharp
+world.Commands.Destroy(handle);
+```
+
+The command is recorded.
+
+Later:
+
+```csharp
+world.ApplyCommands();
+```
+
+executes all structural changes safely.
+
+This eliminates synchronization issues.
+
+---
+
+# Why Unmanaged Native Storage Is Non-Negotiable
+
+One of the biggest reasons Typed Entity Pools exist is because Forgewild is designed around:
+
+- Massive simulation counts
+- Parallel execution
+- Job systems
+- Native interop
+- Manual memory ownership
+- Burst-style optimization
+- Deterministic performance
+
+Because of this, entity storage should eventually use:
+
+```csharp
+NativeArray<Dino>
+NativeList<Dino>
+UnsafeList<Dino>
+```
+
+instead of:
+
+```csharp
+Dino[]
+```
+
+The regular array version is useful as a prototype.
+
+The final engine architecture should be unmanaged.
+
+---
+
+# Why Not Managed Arrays?
+
+Managed arrays have several limitations:
+
+```text
+GC tracked
+Runtime controlled lifetime
+Potential pauses
+Less suitable for native interop
+Harder to reason about ownership
+```
+
+For many applications this is perfectly fine.
+
+For a simulation-heavy game engine, it is not ideal.
+
+---
+
+# Why Unmanaged Storage Wins
+
+Unmanaged storage provides:
+
+```text
+Manual lifetime control
+No GC tracked references
+Native interop
+Job system compatibility
+Predictable allocation behavior
+Large memory capacity
+Burst optimization
+```
+
+These are all requirements for Forgewild.
+
+---
+
+# Parallel Simulation
+
+The long-term goal is to execute systems in parallel.
+
+Example:
+
+```text
+Thread 1 -> Dinosaur AI
+Thread 2 -> Mammal AI
+Thread 3 -> Shrimp AI
+Thread 4 -> Projectile Simulation
+Thread 5 -> Vegetation Updates
+```
+
+Because each pool owns its own memory:
+
+```text
+DinoPool
+MammalPool
+ShrimpPool
+ProjectilePool
+```
+
+systems can operate independently.
+
+This dramatically simplifies parallel execution.
+
+---
+
+# ECS Does Not Own Parallelism
+
+A common misconception is:
+
+```text
+ECS = Parallel
+```
+
+This is false.
+
+Parallelism comes from:
+
+```text
+Independent memory
+Independent workloads
+Careful synchronization
+```
+
+Typed Entity Pools provide all three.
+
+---
+
+# Structural Changes Must Be Separate
+
+One rule must always be followed.
+
+Never spawn or destroy entities while jobs are actively reading or writing a pool.
+
+Instead use phases.
+
+```text
+Frame Begin
+
+Apply Spawn Commands
+Apply Destroy Commands
+
+Run AI Jobs
+Run Physics Jobs
+Run Animation Jobs
+
+Run Render Extraction
+
+Frame End
+```
+
+This keeps memory stable while workers operate.
+
+---
+
+# Command Buffers
+
+Instead of:
+
+```csharp
+DestroyDino(handle);
+```
+
+inside AI code,
+
+use:
+
+```csharp
+world.Commands.Destroy(handle);
+```
+
+The command is recorded.
+
+Later:
+
+```csharp
+world.ApplyCommands();
+```
+
+executes all structural changes safely.
+
+This eliminates synchronization issues.
+
+---
+
+# Why Typed Entity Pools Scale Better Than Expected
+
+Many people assume:
+
+```text
+No ECS = Doesn't Scale
+```
+
+This is incorrect.
+
+The actual scaling factor is:
+
+```text
+Memory layout
+Cache locality
+Threading model
+Query efficiency
+```
+
+Typed Entity Pools optimize all four.
+
+---
+
+# The Real Hot Path
+
+The engine should spend most of its time doing this:
+
+```csharp
+ref var dino = ref dinos[i];
+
+UpdateDino(ref dino);
+```
+
+not this:
+
+```csharp
+world.Get<Transform>(entity);
+world.Get<AIState>(entity);
+world.Get<State>(entity);
+world.Get<Physics>(entity);
+```
+
+Every extra lookup matters.
+
+The dense pool architecture keeps the hot path as small as possible.
+
+---
+
+# The Final Mental Model
+
+Think of Forgewild as a collection of large simulation databases.
+
+```text
+World
+├── DinoPool
+├── MammalPool
+├── ShrimpPool
+├── ProjectilePool
+├── PlantPool
+├── ItemPool
+├── SpatialIndex
+└── PersistentIdRegistry
+```
+
+Each pool owns contiguous unmanaged memory.
+
+Systems iterate those pools directly.
+
+Handles provide stable references.
+
+Spatial structures provide querying.
+
+The result is:
+
+```text
+Simple
+Cache-friendly
+Thread-friendly
+Burst-friendly
+Easy to debug
+Easy to profile
+Easy to reason about
+```
+
+without requiring ECS.
+
 # Final Conclusion
 
 For Forgewild:
