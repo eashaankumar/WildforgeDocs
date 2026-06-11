@@ -563,7 +563,7 @@ Response:
 Use persistent IDs.
 
 ```csharp
-FastGuid
+Guid
 EntityRef
 DinoHandle
 ```
@@ -698,7 +698,7 @@ without introducing ECS.
 Do NOT store the primary entity data inside:
 
 ```csharp
-NativeHashMap<FastGuid, Dino>
+NativeHashMap<Guid, Dino>
 ```
 
 Hot path:
@@ -716,7 +716,7 @@ ref var dino = ref dinos[index];
 Use hash maps only for lookup tables:
 
 ```csharp
-FastGuid -> DinoHandle
+Guid -> DinoHandle
 EntityRef -> Handle
 ```
 
