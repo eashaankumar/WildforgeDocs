@@ -65,11 +65,16 @@ nav:
       - Text:
           - RichText: Rendering/Text/RichText.md
       - UI:
+          - UIButton: Rendering/UI/UIButton.md
+          - UICanvas: Rendering/UI/UICanvas.md
+          - UIElement: Rendering/UI/UIElement.md
           - UISprite: Rendering/UI/UISprite.md
+          - UIText: Rendering/UI/UIText.md
       - Vulkan:
           - Vulkan Rendering: Rendering/Vulkan/VulkanRenderingDoc.md
       - Texture2D: Rendering/Texture2D.md
       - SpriteSheet: Rendering/SpriteSheet.md
+      - Renderer Scene Unloading: Rendering/RendererSceneUnloading.md
   - Shader System:
       - ForgeShader: Shader/ForgeShader.md
       - ForgeShader Casting: Shader/ForgeShaderCasting.md
@@ -86,7 +91,7 @@ nav:
       - Entity Kind: TypedEntityPools/EntityKind.md
       - Entity Ref: TypedEntityPools/EntityRef.md
       - Entity Pool:
-          - API: TypedEntityPools/11-API-Reference.md
+          - API: TypedEntityPools/EntityPool/11-API-Reference.md
           - Overview: TypedEntityPools/EntityPool/01-Introduction-And-Philosophy.md
           - Memory Layout: TypedEntityPools/EntityPool/02-Memory-Layout.md
           - Entity Handle and Generations: TypedEntityPools/EntityPool/03-EntityHandle-And-Generations.md
