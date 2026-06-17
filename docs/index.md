@@ -4,63 +4,10 @@ A modern C# game engine focused on Vulkan rendering, raytracing, compute shaders
 
 ---
 
-# Documentation
-
-## Math
-
-- [FastNoiseLite](Math/FastNoiseLite.md)
-- [RectTransform](Math/RectTransform.md)
-
-## Physics
-
-- [PhysicsSimulationManager](Physics/PhysicsSimulationManager.md)
-
-## Rendering
-
-### Core
-
-- [RenderPass](Rendering/RenderPass.md)
-- [Raytracing Renderer Roadmap](Rendering/RaytracingRendererRoadmap.md)
-
-### Compute
-
-- [Compute](Rendering/Compute/Compute.md)
-
-### Raster
-
-- [Raster Instance API](Rendering/Raster/RasterInstanceApi.md)
-
-### Raytracing
-
-- [RaytracingAccelerationStructure](Rendering/Raytracing/RaytracingAccelerationStructure.md)
-- [RTMaterial](Rendering/Raytracing/RTMaterial.md)
-- [RTMaterialGpuBuffers](Rendering/Raytracing/RTMaterialGpuBuffers.md)
-- [RTMaterialStore](Rendering/Raytracing/RTMaterialStore.md)
-- [ShaderReflection](Rendering/Raytracing/ShaderReflection.md)
-
-### Text
-
-- [RichText](Rendering/Text/RichText.md)
-
-### UI
-
-- [UISprite](Rendering/UI/UISprite.md)
-
-### Vulkan
-
-- [Vulkan Rendering](Rendering/Vulkan/VulkanRenderingDoc.md)
-
-## Shader System
-
-- [ForgeShader](Shader/ForgeShader.md)
-- [ForgeShader Casting](Shader/ForgeShaderCasting.md)
-- [Shader Builder](Shader/ShaderBuilder.md)
-
----
-
 # Features
 
 - Vulkan Renderer
+- Custom Shader Language
 - Hardware Raytracing
 - Compute Shaders
 - Raster Rendering
@@ -71,6 +18,9 @@ A modern C# game engine focused on Vulkan rendering, raytracing, compute shaders
 - Networking
 - Asset Pipelines
 - ForgeShader Language
+- Typed Entity Pools
+- Unmanaged Fast Data Structures
+- Job System
 
 ---
 

@@ -45,8 +45,11 @@ nav:
       - Rect2D: Math/Rect2D.md
       - Transform: Math/Transform.md
   - Memory:
-      - UnmanagedList: Memory/UnmanagedList.md
-      - UnmanagedStack: Memory/UnmanagedStack.md
+      - Unmanaged List: Memory/UnmanagedList.md
+      - Unmanaged Stack: Memory/UnmanagedStack.md
+      - Unmanaged Queue: Memory/UnmanagedQueue.md
+      - Unmanaged Dictionary: Memory/UnmanagedDictionary.md
+      - Unmanaged HashSet: Memory/UnmanagedHashSet.md
   - Physics:
       - PhysicsSimulationManager: Physics/PhysicsSimulationManager.md
   - Rendering:
