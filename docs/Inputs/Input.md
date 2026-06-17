@@ -83,7 +83,7 @@ public void Dispose();
 
 ### Digital keyboard input
 
-Digital keyboard input is normal `true` / `false` key input.
+Digital keyboard input reports keys as `pressed-or-not-pressed` values.
 
 ```csharp
 if (input.IsKeyDown(KeyCode.Space))
@@ -103,6 +103,23 @@ if (input.IsKeyReleased(KeyCode.Space))
 ```
 
 Use digital key APIs for menus, UI, shortcuts, hotkeys, one-shot actions, and anything that should behave like a normal button.
+
+---
+
+## Frame Updates
+
+Call `Update()` exactly once per frame.
+
+```csharp
+while (running)
+{
+    input.Update();
+
+    // Read input here.
+}
+```
+
+Reading input before calling `Update()` may return values from the previous frame.
 
 ---
 
@@ -160,6 +177,16 @@ half-pressed A -> -0.5
 half-pressed D ->  0.5
 ```
 
+### Axis Range
+
+Every registered axis returns a normalized value in the range:
+
+```text
+-1.0 ... 1.0
+```
+
+Values are automatically clamped to this range before being returned by `GetAxis`.
+
 ---
 
 ## `KeyAxisMode`
@@ -199,7 +226,7 @@ Analog mode asks the analog-keyboard system for a floating-point key depth when 
 
 ```text
 not pressed      -> 0.0
-partially pressed -> 0.0..1.0
+partially pressed -> between 0.0 and 1.0
 fully pressed     -> 1.0
 ```
 
@@ -354,6 +381,119 @@ right trigger -> positive value
 none          -> 0
 ```
 
+### Trigger Values
+
+Gamepad triggers return values in the range:
+
+```text
+0.0 ... 1.0
+```
+
+where:
+
+```text
+0.0 -> released
+
+1.0 -> fully pressed
+```
+
+Thumbsticks instead return:
+
+```text
+-1.0 ... 1.0
+```
+
+allowing movement in both positive and negative directions.
+
+### No Connected Gamepad
+
+If no supported gamepad is connected:
+
+```csharp
+input.HasGamepad
+```
+
+returns:
+
+```text
+false
+```
+
+Gamepad methods return neutral values.
+
+For example:
+
+```text
+GetGamepadAxis(...)      -> 0
+
+GetGamepadLeftStick()    -> (0,0)
+
+GetGamepadRightStick()   -> (0,0)
+```
+
+This allows gameplay code to safely read gamepad input without first checking whether a controller is connected.
+
+---
+
+## Deadzones
+
+Gamepad sticks and triggers support configurable deadzones.
+
+The default deadzone is:
+
+```csharp
+0.12f
+```
+
+Input values inside the deadzone return zero.
+
+For example:
+
+```text
+0.05 -> 0
+
+0.10 -> 0
+
+0.30 -> scaled output
+```
+
+Deadzones remove small hardware drift that commonly occurs with analog sticks.
+
+Example:
+
+```csharp
+Vector2 move =
+    input.GetGamepadLeftStick(
+        deadzone: 0.20f);
+```
+
+The same deadzone parameter is also available when registering gamepad-backed axes.
+
+---
+
+## HasGamepad
+
+```csharp
+public bool HasGamepad { get; }
+```
+
+Returns whether a supported gamepad is currently connected.
+
+Example:
+
+```csharp
+if (input.HasGamepad)
+{
+    ShowControllerHints();
+}
+else
+{
+    ShowKeyboardHints();
+}
+```
+
+This value updates automatically as controllers are connected or disconnected.
+
 ---
 
 ## Mouse Input
@@ -365,6 +505,8 @@ Vector2 position = input.MousePosition;
 Vector2 delta = input.MouseDelta;
 float scrollY = input.MouseScrollDeltaY;
 ```
+
+`MouseDelta` represents movement since the previous call to `Update()`.
 
 Mouse buttons:
 
@@ -393,6 +535,40 @@ input.RegisterAxis(
     minMouseButton: MouseButton.Right,
     maxMouseButton: MouseButton.Left);
 ```
+
+### Mouse Coordinate System
+
+Mouse coordinates use the engine's window coordinate system.
+
+The origin is located at the bottom-left corner of the window.
+
+```text
+(0,0)
+
+↓
+
+Bottom Left
+```
+
+Increasing X moves right.
+
+Increasing Y moves upward.
+
+---
+
+## Disposal
+
+`Input` manages native resources associated with supported input devices.
+
+When the input system is no longer needed, dispose it.
+
+```csharp
+input.Dispose();
+```
+
+Disposal releases resources associated with supported gamepads and analog keyboard devices.
+
+Most applications create one `Input` instance for the lifetime of the main window and dispose it during shutdown.
 
 ---
 
@@ -546,6 +722,7 @@ input.IsKeyReleased(...);
 input.IsMouseButtonDown(...);
 input.IsMouseButtonPressed(...);
 input.IsMouseButtonReleased(...);
+input.Dispose(...);
 ```
 
 ### Internal / not user-facing
