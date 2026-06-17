@@ -68,10 +68,35 @@ nav:
           - UISprite: Rendering/UI/UISprite.md
       - Vulkan:
           - Vulkan Rendering: Rendering/Vulkan/VulkanRenderingDoc.md
+      - Texture2D: Rendering/Texture2D.md
+      - SpriteSheet: Rendering/SpriteSheet.md
   - Shader System:
       - ForgeShader: Shader/ForgeShader.md
       - ForgeShader Casting: Shader/ForgeShaderCasting.md
       - Shader Builder: Shader/ShaderBuilder.md
+  - Threading:
+      - Interval Thread: Threading/IntervalThread.md
+      - Jobs:
+          - IJob: Threading/Jobs/IJob.md
+          - JobBatch: Threading/Jobs/JobBatch.md
+          - JobSafety: Threading/Jobs/JobSafety.md
+          - JobSystem: Threading/Jobs/JobSystem.md
+  - Typed Entity Pools:
+      - Entity Handle: TypedEntityPools/EntityHandle.md
+      - Entity Kind: TypedEntityPools/EntityKind.md
+      - Entity Ref: TypedEntityPools/EntityRef.md
+      - Entity Pool:
+          - API: TypedEntityPools/11-API-Reference.md
+          - Overview: TypedEntityPools/EntityPool/01-Introduction-And-Philosophy.md
+          - Memory Layout: TypedEntityPools/02-Memory-Layout.md
+          - Entity Handle and Generations: TypedEntityPools/03-EntityHandle-And-Generations.md
+          - Creating Entities: TypedEntityPools/04-Creating-Entities.md
+          - Destroying Entities: TypedEntityPools/05-Destroying-Entities.md
+          - Lookups and Validation: TypedEntityPools/06-Lookups-And-Validation.md
+          - Dense Iteration and Views: TypedEntityPools/07-Dense-Iteration-And-Views.md
+          - Performance Characteristics: TypedEntityPools/08-Performance-Characteristics.md
+          - Parallel Simulation and Command Buffers: TypedEntityPools/09-Parallel-Simulation-And-Command-Buffers.md
+          - Best Practices: TypedEntityPools/10-Patterns-Best-Practices-And-Pitfalls.md
 
 markdown_extensions:
   - admonition
