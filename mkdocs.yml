@@ -37,9 +37,16 @@ theme:
 
 nav:
   - Home: index.md
+  - Inputs: Inputs/Input.md
   - Math:
       - FastNoiseLite: Math/FastNoiseLite.md
       - RectTransform: Math/RectTransform.md
+      - Color: Math/Color.md
+      - Rect2D: Math/Rect2D.md
+      - Transform: Math/Transform.md
+  - Memory:
+      - UnmanagedList: Memory/UnmanagedList.md
+      - UnmanagedStack: Memory/UnmanagedStack.md
   - Physics:
       - PhysicsSimulationManager: Physics/PhysicsSimulationManager.md
   - Rendering:
