@@ -88,15 +88,20 @@ nav:
       - Entity Pool:
           - API: TypedEntityPools/11-API-Reference.md
           - Overview: TypedEntityPools/EntityPool/01-Introduction-And-Philosophy.md
-          - Memory Layout: TypedEntityPools/02-Memory-Layout.md
-          - Entity Handle and Generations: TypedEntityPools/03-EntityHandle-And-Generations.md
-          - Creating Entities: TypedEntityPools/04-Creating-Entities.md
-          - Destroying Entities: TypedEntityPools/05-Destroying-Entities.md
-          - Lookups and Validation: TypedEntityPools/06-Lookups-And-Validation.md
-          - Dense Iteration and Views: TypedEntityPools/07-Dense-Iteration-And-Views.md
-          - Performance Characteristics: TypedEntityPools/08-Performance-Characteristics.md
-          - Parallel Simulation and Command Buffers: TypedEntityPools/09-Parallel-Simulation-And-Command-Buffers.md
-          - Best Practices: TypedEntityPools/10-Patterns-Best-Practices-And-Pitfalls.md
+          - Memory Layout: TypedEntityPools/EntityPool/02-Memory-Layout.md
+          - Entity Handle and Generations: TypedEntityPools/EntityPool/03-EntityHandle-And-Generations.md
+          - Creating Entities: TypedEntityPools/EntityPool/04-Creating-Entities.md
+          - Destroying Entities: TypedEntityPools/EntityPool/05-Destroying-Entities.md
+          - Lookups and Validation: TypedEntityPools/EntityPool/06-Lookups-And-Validation.md
+          - Dense Iteration and Views: TypedEntityPools/EntityPool/07-Dense-Iteration-And-Views.md
+          - Performance Characteristics: TypedEntityPools/EntityPool/08-Performance-Characteristics.md
+          - Parallel Simulation and Command Buffers: TypedEntityPools/EntityPool/09-Parallel-Simulation-And-Command-Buffers.md
+          - Best Practices: TypedEntityPools/EntityPool/10-Patterns-Best-Practices-And-Pitfalls.md
+      - Commands:
+          - IWorldCommand: TypedEntityPools/Commands/IWorldCommand.md
+          - PromisedId: TypedEntityPools/Commands/PromisedId.md
+          - World Command Context: TypedEntityPools/Commands/WorldCommandContext.md
+          - World Command List: TypedEntityPools/Commands/WorldCommandList.md
 
 markdown_extensions:
   - admonition
