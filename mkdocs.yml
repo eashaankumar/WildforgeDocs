@@ -50,6 +50,7 @@ nav:
       - Unmanaged Queue: Memory/UnmanagedQueue.md
       - Unmanaged Dictionary: Memory/UnmanagedDictionary.md
       - Unmanaged HashSet: Memory/UnmanagedHashSet.md
+      - Unmanaged String (64): Memory/UnmanagedString64.md
   - Physics:
       - PhysicsSimulationManager: Physics/PhysicsSimulationManager.md
   - Rendering:
