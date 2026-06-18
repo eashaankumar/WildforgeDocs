@@ -17,7 +17,7 @@ public unsafe struct UnmanagedString64 :
 
 ## Capacity
 
-Stores up to **64 UTF-8 bytes**.
+Stores up to **63 UTF-8 bytes**. Struct total size is `64 bytes`.
 
 The `Length` field is stored separately and does not reduce the available storage capacity.
 
