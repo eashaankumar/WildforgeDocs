@@ -170,7 +170,53 @@ UnmanagedArray<int>.Copy(
 
 The source and destination ranges must both be valid or an `ArgumentOutOfRangeException` is thrown.
 
-This operation performs a direct memory copy and is significantly faster than copying elements individually.
+This operation performs a direct native memory copy.
+
+---
+
+### CopyTo()
+
+Copies the entire contents of the array into another unmanaged array.
+
+```csharp
+source.CopyTo(destination);
+```
+
+The destination array must be at least as large as the source array.
+
+Equivalent to:
+
+```csharp
+UnmanagedArray<T>.Copy(
+    source,
+    0,
+    destination,
+    0,
+    source.Length);
+```
+
+---
+
+### CopyFrom()
+
+Copies the entire contents of another unmanaged array into this array.
+
+```csharp
+destination.CopyFrom(source);
+```
+
+The destination array must be at least as large as the source array.
+
+Equivalent to:
+
+```csharp
+UnmanagedArray<T>.Copy(
+    source,
+    0,
+    destination,
+    0,
+    source.Length);
+```
 
 ---
 
@@ -208,6 +254,8 @@ array.Dispose();
 | AsSpan | O(1) |
 | AsView | O(1) |
 | Copy | O(n) |
+| CopyTo | O(n) |
+| CopyFrom | O(n) |
 | Clear | O(n) |
 | Dispose | O(1) |
 
@@ -224,6 +272,7 @@ array.Dispose();
 - Span support.
 - View support.
 - Fast native memory copying.
+- Convenient whole-array copy operations.
 - Compatibility with `where T : unmanaged`.
 - Suitable for Burst-compatible and high-performance systems.
 
@@ -238,7 +287,8 @@ array.Dispose();
 | Pointer access | ✅ | ✅ |
 | Span support | ✅ | ✅ |
 | View support | ✅ | ✅ |
-| Fast memory copy | ✅ | ❌ |
+| Range copy | ✅ | ❌ |
+| Whole-array copy | ✅ | ❌ |
 | Requires Dispose | ✅ | ✅ |
 
 ---
@@ -254,12 +304,10 @@ for (var i = 0; i < source.Length; i++)
     source.TrySet(i, i * 0.5f);
 }
 
-UnmanagedArray<float>.Copy(
-    source,
-    0,
-    destination,
-    0,
-    source.Length);
+source.CopyTo(destination);
+
+// Equivalent:
+// destination.CopyFrom(source);
 
 Span<float> span = destination.AsSpan();
 

@@ -44,6 +44,8 @@ nav:
       - Color: Math/Color.md
       - Rect2D: Math/Rect2D.md
       - Transform: Math/Transform.md
+      - VectorInt: Math/VectorInt.md
+      - IndexUtilities: Math/IndexUtilities.md
   - Memory:
       - Unmanaged Array: Memory/UnmanagedArray.md
       - Unmanaged List: Memory/UnmanagedList.md
