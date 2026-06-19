@@ -45,6 +45,7 @@ nav:
       - Rect2D: Math/Rect2D.md
       - Transform: Math/Transform.md
   - Memory:
+      - Unmanaged Array: Memory/UnmanagedArray.md
       - Unmanaged List: Memory/UnmanagedList.md
       - Unmanaged Stack: Memory/UnmanagedStack.md
       - Unmanaged Queue: Memory/UnmanagedQueue.md
