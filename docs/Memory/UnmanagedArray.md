@@ -103,6 +103,8 @@ if (array.TryGetValue(index, out var value))
 }
 ```
 
+Returns `false` if the index is invalid.
+
 ---
 
 ### TrySet()
@@ -119,7 +121,7 @@ Returns `false` if the index is invalid.
 
 ### UnsafeElementAt()
 
-Returns a reference without bounds checking.
+Returns a reference to an element without bounds checking.
 
 ```csharp
 ref var value = ref array.UnsafeElementAt(index);
@@ -143,7 +145,7 @@ Span<int> span = array.AsSpan();
 
 ### AsView()
 
-Creates an unmanaged view.
+Creates an unmanaged view over the array.
 
 ```csharp
 UnmanagedView<int> view = array.AsView();
@@ -151,11 +153,32 @@ UnmanagedView<int> view = array.AsView();
 
 ---
 
+## Copying
+
+### Copy()
+
+Copies a range of elements between unmanaged arrays.
+
+```csharp
+UnmanagedArray<int>.Copy(
+    source,
+    sourceIndex,
+    destination,
+    destinationIndex,
+    length);
+```
+
+The source and destination ranges must both be valid or an `ArgumentOutOfRangeException` is thrown.
+
+This operation performs a direct memory copy and is significantly faster than copying elements individually.
+
+---
+
 ## Memory Operations
 
 ### Clear()
 
-Resets every element to its default value.
+Sets every element to its default value.
 
 ```csharp
 array.Clear();
@@ -165,7 +188,7 @@ array.Clear();
 
 ## Disposal
 
-The unmanaged memory must be released.
+The unmanaged memory must be released when the array is no longer needed.
 
 ```csharp
 array.Dispose();
@@ -184,6 +207,7 @@ array.Dispose();
 | UnsafeElementAt | O(1) |
 | AsSpan | O(1) |
 | AsView | O(1) |
+| Copy | O(n) |
 | Clear | O(n) |
 | Dispose | O(1) |
 
@@ -199,6 +223,7 @@ array.Dispose();
 - Pointer-based access.
 - Span support.
 - View support.
+- Fast native memory copying.
 - Compatibility with `where T : unmanaged`.
 - Suitable for Burst-compatible and high-performance systems.
 
@@ -213,6 +238,7 @@ array.Dispose();
 | Pointer access | ✅ | ✅ |
 | Span support | ✅ | ✅ |
 | View support | ✅ | ✅ |
+| Fast memory copy | ✅ | ❌ |
 | Requires Dispose | ✅ | ✅ |
 
 ---
@@ -220,14 +246,22 @@ array.Dispose();
 ## Example
 
 ```csharp
-using var heights = new UnmanagedArray<float>(256);
+using var source = new UnmanagedArray<float>(256);
+using var destination = new UnmanagedArray<float>(256);
 
-for (var i = 0; i < heights.Length; i++)
+for (var i = 0; i < source.Length; i++)
 {
-    heights.TrySet(i, i * 0.5f);
+    source.TrySet(i, i * 0.5f);
 }
 
-Span<float> span = heights.AsSpan();
+UnmanagedArray<float>.Copy(
+    source,
+    0,
+    destination,
+    0,
+    source.Length);
+
+Span<float> span = destination.AsSpan();
 
 span[0] = 10;
 ```
